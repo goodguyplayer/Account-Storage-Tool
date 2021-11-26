@@ -75,29 +75,52 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
     private Boolean isToReturn(int result){
         if (result == 1){
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
+
+    private Boolean isValueNull(String value){
+        if (value == null){
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean isValueEmpty(String value){
+        if (!isValueNull(value)){
+            if (value.length() > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean isAccountValid(Account account){
+        return isValueEmpty(account.getUsername()) && isValueEmpty(account.getWebsite()) && isValueEmpty(account.getPassword());
+    }
+
+
 
     @Override
     public Boolean update(Account account) {
         logger.trace("");
         int toreturn = 0;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(getUpdateString(getTableName()));
-            preparedStatement.setString(1, account.getWebsite());
-            preparedStatement.setString(2, account.getUsername());
-            preparedStatement.setString(3, account.getEmail());
-            preparedStatement.setString(4, account.getPassword());
-            preparedStatement.setString(5, account.getReminderquestion());
-            preparedStatement.setString(6, account.getReminderanswer());
-            preparedStatement.setBoolean(7, account.getTwofactor());
-            preparedStatement.setString(8, account.getWebsite());
-            preparedStatement.setString(9, account.getUsername());
-            toreturn = preparedStatement.executeUpdate();
-        } catch (Exception e){
-            logger.error(e.getMessage());
+        if (isAccountValid(account)){
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(getUpdateString(getTableName()));
+                preparedStatement.setString(1, account.getWebsite());
+                preparedStatement.setString(2, account.getUsername());
+                preparedStatement.setString(3, account.getEmail());
+                preparedStatement.setString(4, account.getPassword());
+                preparedStatement.setString(5, account.getReminderquestion());
+                preparedStatement.setString(6, account.getReminderanswer());
+                preparedStatement.setBoolean(7, account.getTwofactor());
+                preparedStatement.setString(8, account.getWebsite());
+                preparedStatement.setString(9, account.getUsername());
+                toreturn = preparedStatement.executeUpdate();
+            } catch (Exception e){
+                logger.error(e.getMessage());
+            }
         }
 
         return isToReturn(toreturn);
@@ -107,13 +130,15 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
     public Boolean delete(Account account) {
         logger.trace("");
         int toreturn = 0;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(getDeleteString(getTableName()));
-            preparedStatement.setString(1, account.getWebsite());
-            preparedStatement.setString(2, account.getUsername());
-            toreturn = preparedStatement.executeUpdate();
-        } catch (Exception e){
-            logger.error(e.getMessage());
+        if (isAccountValid(account)){
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(getDeleteString(getTableName()));
+                preparedStatement.setString(1, account.getWebsite());
+                preparedStatement.setString(2, account.getUsername());
+                toreturn = preparedStatement.executeUpdate();
+            } catch (Exception e){
+                logger.error(e.getMessage());
+            }
         }
 
         return isToReturn(toreturn);
@@ -123,18 +148,20 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
     public Boolean create(Account account) {
         logger.trace("");
         int toreturn = 0;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(getInsertString(getTableName()));
-            preparedStatement.setString(1, account.getWebsite());
-            preparedStatement.setString(2, account.getUsername());
-            preparedStatement.setString(3, account.getEmail());
-            preparedStatement.setString(4, account.getPassword());
-            preparedStatement.setString(5, account.getReminderquestion());
-            preparedStatement.setString(6, account.getReminderanswer());
-            preparedStatement.setBoolean(7, account.getTwofactor());
-            toreturn = preparedStatement.executeUpdate();
-        } catch (Exception e){
-            logger.error(e.getMessage());
+        if (isAccountValid(account)){
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(getInsertString(getTableName()));
+                preparedStatement.setString(1, account.getWebsite());
+                preparedStatement.setString(2, account.getUsername());
+                preparedStatement.setString(3, account.getEmail());
+                preparedStatement.setString(4, account.getPassword());
+                preparedStatement.setString(5, account.getReminderquestion());
+                preparedStatement.setString(6, account.getReminderanswer());
+                preparedStatement.setBoolean(7, account.getTwofactor());
+                toreturn = preparedStatement.executeUpdate();
+            } catch (Exception e){
+                logger.error(e.getMessage());
+            }
         }
 
         return isToReturn(toreturn);
@@ -190,7 +217,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 " (" +
                 " website VARCHAR NOT NULL," +
                 " username VARCHAR NOT NULL," +
-                " email VARCHAR NOT NULL," +
+                " email VARCHAR," +
                 " password VARCHAR NOT NULL," +
                 " reminderquestion VARCHAR," +
                 " reminderanswer VARCHAR," +

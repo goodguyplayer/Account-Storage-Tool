@@ -48,9 +48,9 @@ class AccountCRUDTest {
     @Test
     public void testAddInvalidAccountEmpty(){
         Account account = new Account(
-                null,
-                null,
-                null,
+                "",
+                "",
+                "",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
                 "it was here",
