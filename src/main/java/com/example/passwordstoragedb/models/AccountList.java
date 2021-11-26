@@ -27,26 +27,5 @@ public class AccountList {
         }
         return null;
     }
-
-    // Todo.: Loop within loop. Dislike this. Look for better way.
-    public boolean isTherePasswordRepeat() {
-        for (Account account : this.accounts) {
-            for (Account account1 : this.accounts) {
-                if (!isTheSameAccount(account, account1)) {
-                    if (isTheSamePassword(account, account1)){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean isTheSameAccount(Account account, Account account1){
-        return (account == account1);
-    }
-
-    private boolean isTheSamePassword(Account account, Account account1){
-        return (account.password == account1.password);
-    }
+    
 }
