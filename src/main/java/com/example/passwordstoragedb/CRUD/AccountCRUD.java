@@ -31,17 +31,17 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
 
     @Override
     public Boolean update(Account account) {
-        return 0;
+        return false;
     }
 
     @Override
     public Boolean delete(Account account) {
-        return 0;
+        return false;
     }
 
     @Override
     public Boolean create(Account account) {
-        return 0;
+        return false;
     }
 
     @Override
