@@ -8,6 +8,7 @@ public class Account {
     String reminderquestion;
     String reminderanswer;
     Boolean twofactor;
+    int id;
 
     public Account(String website, String username, String email, String password, String reminderquestion, String reminderanswer, Boolean twofactor) {
         this.website = website;
@@ -47,6 +48,10 @@ public class Account {
         return twofactor;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setWebsite(String website) {
         this.website = website;
     }
@@ -73,5 +78,9 @@ public class Account {
 
     public void setTwofactor(Boolean twofactor) {
         this.twofactor = twofactor;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

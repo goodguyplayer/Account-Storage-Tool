@@ -11,7 +11,7 @@ class AccountCRUDTest {
 
     @Disabled
     @Test
-    public void testConstructor() throws Exception{
+    public void testTableExistence() throws Exception{
         // TODO.: Test if table exists
     }
 
@@ -73,7 +73,8 @@ class AccountCRUDTest {
         );
 
         crud.create(account);
-        account.setPassword("987654321");
+        account.setUsername("super");
+        account.setId(((Account) crud.getAll().get(0)).getId());
         assertTrue(crud.update(account));
         crud.delete(account);
     }
@@ -91,9 +92,9 @@ class AccountCRUDTest {
         );
 
         crud.create(account);
-        account.setPassword(null);
+        account.setUsername(null);
+        account.setId(((Account) crud.getAll().get(0)).getId());
         assertFalse(crud.update(account));
-        account.setPassword("three");
         crud.delete(account);
     }
 
@@ -110,9 +111,10 @@ class AccountCRUDTest {
         );
 
         crud.create(account);
-        account.setPassword("");
+        account.setUsername("");
+        account.setId(((Account) crud.getAll().get(0)).getId());
         assertFalse(crud.update(account));
-        account.setPassword("three");
+        account.setUsername("username");
         crud.delete(account);
     }
 

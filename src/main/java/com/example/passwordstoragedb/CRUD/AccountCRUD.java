@@ -30,15 +30,15 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(getSelectConditionalString(getTableName()) + condition);
             while(result.next()){
-                accountList.addAccount(new Account(
-                        result.getString("website"),
+                Account account = new Account(result.getString("website"),
                         result.getString("username"),
                         result.getString("email"),
                         result.getString("password"),
                         result.getString("reminderquestion"),
                         result.getString("reminderanswer"),
-                        result.getBoolean("twotwofactor")
-                ));
+                        result.getBoolean("twotwofactor"));
+                account.setId(result.getInt("id"));
+                accountList.addAccount(account);
             }
             result.close();
         }catch (Exception e) {
@@ -55,15 +55,15 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(getSelectAllString(getTableName()));
             while(result.next()){
-                accountList.addAccount(new Account(
-                        result.getString("website"),
+                Account account = new Account(result.getString("website"),
                         result.getString("username"),
                         result.getString("email"),
                         result.getString("password"),
                         result.getString("reminderquestion"),
                         result.getString("reminderanswer"),
-                        result.getBoolean("twotwofactor")
-                ));
+                        result.getBoolean("twofactor"));
+                account.setId(result.getInt("id"));
+                accountList.addAccount(account);
             }
             result.close();
         }catch (Exception e){
@@ -96,7 +96,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
     }
 
     private Boolean isAccountValid(Account account){
-        return isValueEmpty(account.getUsername()) && isValueEmpty(account.getWebsite()) && isValueEmpty(account.getPassword());
+        return (isValueEmpty(account.getUsername()) && isValueEmpty(account.getWebsite()));
     }
 
 
@@ -115,8 +115,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 preparedStatement.setString(5, account.getReminderquestion());
                 preparedStatement.setString(6, account.getReminderanswer());
                 preparedStatement.setBoolean(7, account.getTwofactor());
-                preparedStatement.setString(8, account.getWebsite());
-                preparedStatement.setString(9, account.getUsername());
+                preparedStatement.setInt(8, account.getId());
                 toreturn = preparedStatement.executeUpdate();
             } catch (Exception e){
                 logger.error(e.getMessage());
@@ -130,15 +129,12 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
     public Boolean delete(Account account) {
         logger.trace("");
         int toreturn = 0;
-        if (isAccountValid(account)){
-            try {
-                PreparedStatement preparedStatement = connection.prepareStatement(getDeleteString(getTableName()));
-                preparedStatement.setString(1, account.getWebsite());
-                preparedStatement.setString(2, account.getUsername());
-                toreturn = preparedStatement.executeUpdate();
-            } catch (Exception e){
-                logger.error(e.getMessage());
-            }
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(getDeleteString(getTableName()));
+            preparedStatement.setInt(1, account.getId());
+            toreturn = preparedStatement.executeUpdate();
+        } catch (Exception e){
+            logger.error(e.getMessage());
         }
 
         return isToReturn(toreturn);
@@ -176,7 +172,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
     @Override
     public String getDeleteString(String table) {
         logger.trace("");
-        return "DELETE FROM "+ table +" WHERE website = ? AND username = ?;";
+        return "DELETE FROM "+ table +" WHERE id = ?;";
     }
 
     @Override
@@ -190,7 +186,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 "reminderquestion = ?, " +
                 "reminderanswer = ?, " +
                 "twofactor = ? " +
-                "WHERE website = ? AND username = ?;";
+                "WHERE id = ?;";
     }
 
     @Override
@@ -214,7 +210,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
     private String createTableString(String table){
         logger.trace("");
         return "CREATE TABLE IF NOT EXISTS " + table +
-                " (" +
+                " (id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " website VARCHAR NOT NULL," +
                 " username VARCHAR NOT NULL," +
                 " email VARCHAR," +
