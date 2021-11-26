@@ -4,12 +4,16 @@ public class Account {
     String username;
     String email;
     String password;
-    String reminder;
+    String reminderquestion;
+    String reminderanswer;
+    Boolean twofactor;
 
-    public Account(String username, String email, String password, String reminder) {
+    public Account(String username, String email, String password, String reminderquestion, String reminderanswer, Boolean twofactor) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.reminder = reminder;
+        this.reminderquestion = reminderquestion;
+        this.reminderanswer = reminderanswer;
+        this.twofactor = twofactor;
     }
 }

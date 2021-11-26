@@ -5,6 +5,7 @@ module com.example.passwordstoragedb {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires log4j;
+    requires java.sql;
 
     opens com.example.passwordstoragedb to javafx.fxml;
     exports com.example.passwordstoragedb;
