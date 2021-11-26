@@ -14,6 +14,7 @@ class AccountListTest {
             "password",
             "What was your first pet",
             "That one",
+            "",
             true);
 
     Account account2 = new Account("username2",
@@ -21,6 +22,7 @@ class AccountListTest {
             "password2",
             "What was your first pet2",
             "That one2",
+            "",
             false);
 
     Account account3 = new Account("username3",
@@ -28,6 +30,7 @@ class AccountListTest {
             "password2",
             "What was your first pet2",
             "That one2",
+            "",
             false);
 
     AccountList accountList = new AccountList();
