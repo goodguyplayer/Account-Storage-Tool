@@ -60,4 +60,60 @@ class AccountCRUDTest {
         crud.delete(account);
     }
 
+    @Test
+    public void testUpdateValidAccount(){
+        Account account = new Account(
+                "www.google.com",
+                "username",
+                "email@email.com",
+                "123456789!@#$%¨&*()_+",
+                "where was it?",
+                "it was here",
+                true
+        );
+
+        crud.create(account);
+        account.setPassword("987654321");
+        assertTrue(crud.update(account));
+        crud.delete(account);
+    }
+
+    @Test
+    public void testUpdateInvalidAccountNull(){
+        Account account = new Account(
+                "www.google.com",
+                "username",
+                "email@email.com",
+                "123456789!@#$%¨&*()_+",
+                "where was it?",
+                "it was here",
+                true
+        );
+
+        crud.create(account);
+        account.setPassword(null);
+        assertFalse(crud.update(account));
+        account.setPassword("three");
+        crud.delete(account);
+    }
+
+    @Test
+    public void testUpdateInvalidAccountEmpty(){
+        Account account = new Account(
+                "www.google.com",
+                "username",
+                "email@email.com",
+                "123456789!@#$%¨&*()_+",
+                "where was it?",
+                "it was here",
+                true
+        );
+
+        crud.create(account);
+        account.setPassword("");
+        assertFalse(crud.update(account));
+        account.setPassword("three");
+        crud.delete(account);
+    }
+
 }
