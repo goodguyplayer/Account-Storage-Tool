@@ -2,3 +2,4 @@
 accounts.db
 password-storage-db.iml
 *.class
+*.out

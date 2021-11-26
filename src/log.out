@@ -1,8 +1,0 @@
-[DEBUG] 2021-11-26 10:10:09,181 com.example.passwordstoragedb.HelloApplication start - this is a debug log message
-[INFO] 2021-11-26 10:10:09,183 com.example.passwordstoragedb.HelloApplication start - this is a information log message
-[WARN] 2021-11-26 10:10:09,185 com.example.passwordstoragedb.HelloApplication start - this is a warning log message
-[INFO] 2021-11-26 10:10:09,185 com.example.passwordstoragedb.HelloApplication start - This is my first log4j's statement
-[DEBUG] 2021-11-26 10:10:19,425 com.example.passwordstoragedb.HelloApplication start - this is a debug log message
-[INFO] 2021-11-26 10:10:19,427 com.example.passwordstoragedb.HelloApplication start - this is a information log message
-[WARN] 2021-11-26 10:10:19,427 com.example.passwordstoragedb.HelloApplication start - this is a warning log message
-[INFO] 2021-11-26 10:10:19,428 com.example.passwordstoragedb.HelloApplication start - This is my first log4j's statement
