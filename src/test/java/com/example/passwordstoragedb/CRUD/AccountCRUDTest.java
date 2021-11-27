@@ -23,9 +23,7 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here",
-                true
-        );
+                "it was here");
         assertTrue(crud.create(account));
         crud.delete(account);
     }
@@ -38,9 +36,7 @@ class AccountCRUDTest {
                 null,
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here",
-                true
-        );
+                "it was here");
         assertFalse(crud.create(account));
         crud.delete(account);
     }
@@ -53,9 +49,7 @@ class AccountCRUDTest {
                 "",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here",
-                true
-        );
+                "it was here");
         assertFalse(crud.create(account));
         crud.delete(account);
     }
@@ -68,9 +62,7 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here",
-                true
-        );
+                "it was here");
 
         crud.create(account);
         account.setUsername("super");
@@ -87,9 +79,7 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here",
-                true
-        );
+                "it was here");
 
         crud.create(account);
         account.setUsername(null);
@@ -106,9 +96,7 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here",
-                true
-        );
+                "it was here");
 
         crud.create(account);
         account.setUsername("");

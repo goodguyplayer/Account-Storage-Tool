@@ -14,24 +14,21 @@ class AccountListTest {
             "password",
             "What was your first pet",
             "That one",
-            "",
-            true);
+            "");
 
     Account account2 = new Account("username2",
             "email2",
             "password2",
             "What was your first pet2",
             "That one2",
-            "",
-            false);
+            "");
 
     Account account3 = new Account("username3",
             "email2",
             "password2",
             "What was your first pet2",
             "That one2",
-            "",
-            false);
+            "");
 
     AccountList accountList = new AccountList();
     static Logger logger = Logger.getLogger(AccountListTest.class);
@@ -48,17 +45,17 @@ class AccountListTest {
     @Test
     public void sameAccounts(){
         logger.trace("Test method");
-        assertSame(accountList.returnAccount(account1.username), account1);
-        assertSame(accountList.returnAccount(account2.username), account2);
-        assertSame(accountList.returnAccount(account3.username), account3);
+        assertSame(accountList.returnAccount(account1.getUsername()), account1);
+        assertSame(accountList.returnAccount(account2.getUsername()), account2);
+        assertSame(accountList.returnAccount(account3.getUsername()), account3);
     }
 
     @Test
     public void differentAccounts(){
         logger.trace("Test method");
-        assertNotSame(accountList.returnAccount(account2.username), account1);
-        assertNotSame(accountList.returnAccount(account2.username), account3);
-        assertNotSame(accountList.returnAccount(account1.username), account3);
+        assertNotSame(accountList.returnAccount(account2.getUsername()), account1);
+        assertNotSame(accountList.returnAccount(account2.getUsername()), account3);
+        assertNotSame(accountList.returnAccount(account1.getUsername()), account3);
     }
 
     @Test

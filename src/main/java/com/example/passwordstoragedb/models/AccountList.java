@@ -21,7 +21,7 @@ public class AccountList {
     // Todo.: Find better alternatives than to return null
     public Account returnAccount(String username) {
         for (Account account : this.accounts) {
-            if (account.username == username) {
+            if (account.getUsername() == username) {
                 return account;
             }
         }

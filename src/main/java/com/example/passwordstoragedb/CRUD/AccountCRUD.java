@@ -35,8 +35,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                         result.getString("email"),
                         result.getString("password"),
                         result.getString("reminderquestion"),
-                        result.getString("reminderanswer"),
-                        result.getBoolean("twotwofactor"));
+                        result.getString("reminderanswer"));
                 account.setId(result.getInt("id"));
                 accountList.addAccount(account);
             }
@@ -60,8 +59,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                         result.getString("email"),
                         result.getString("password"),
                         result.getString("reminderquestion"),
-                        result.getString("reminderanswer"),
-                        result.getBoolean("twofactor"));
+                        result.getString("reminderanswer"));
                 account.setId(result.getInt("id"));
                 accountList.addAccount(account);
             }
@@ -114,7 +112,6 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 preparedStatement.setString(4, account.getPassword());
                 preparedStatement.setString(5, account.getReminderquestion());
                 preparedStatement.setString(6, account.getReminderanswer());
-                preparedStatement.setBoolean(7, account.getTwofactor());
                 preparedStatement.setInt(8, account.getId());
                 toreturn = preparedStatement.executeUpdate();
             } catch (Exception e){
@@ -153,7 +150,6 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 preparedStatement.setString(4, account.getPassword());
                 preparedStatement.setString(5, account.getReminderquestion());
                 preparedStatement.setString(6, account.getReminderanswer());
-                preparedStatement.setBoolean(7, account.getTwofactor());
                 toreturn = preparedStatement.executeUpdate();
             } catch (Exception e){
                 logger.error(e.getMessage());

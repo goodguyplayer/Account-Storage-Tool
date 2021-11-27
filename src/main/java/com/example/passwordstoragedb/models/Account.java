@@ -1,23 +1,21 @@
 package com.example.passwordstoragedb.models;
 
 public class Account {
-    String website;
-    String username;
-    String email;
-    String password;
-    String reminderquestion;
-    String reminderanswer;
-    Boolean twofactor;
-    int id;
+    private String website;
+    private String username;
+    private String email;
+    private String password;
+    private String reminderquestion;
+    private String reminderanswer;
+    private int id;
 
-    public Account(String website, String username, String email, String password, String reminderquestion, String reminderanswer, Boolean twofactor) {
+    public Account(String website, String username, String email, String password, String reminderquestion, String reminderanswer) {
         this.website = website;
         this.username = username;
         this.email = email;
         this.password = password;
         this.reminderquestion = reminderquestion;
         this.reminderanswer = reminderanswer;
-        this.twofactor = twofactor;
     }
 
     public String getWebsite() {
@@ -42,10 +40,6 @@ public class Account {
 
     public String getReminderanswer() {
         return reminderanswer;
-    }
-
-    public Boolean getTwofactor() {
-        return twofactor;
     }
 
     public int getId() {
@@ -74,10 +68,6 @@ public class Account {
 
     public void setReminderanswer(String reminderanswer) {
         this.reminderanswer = reminderanswer;
-    }
-
-    public void setTwofactor(Boolean twofactor) {
-        this.twofactor = twofactor;
     }
 
     public void setId(int id) {
