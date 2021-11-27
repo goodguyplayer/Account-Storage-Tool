@@ -4,6 +4,8 @@ import com.example.passwordstoragedb.models.Account;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountCRUDTest {
@@ -15,6 +17,15 @@ class AccountCRUDTest {
         // TODO.: Test if table exists
     }
 
+    private Account getTestAccount(List<Account> list){
+        for (Account account:list) {
+            if (account.getReminderanswer().equals("for test account")){
+                return account;
+            }
+        }
+        return list.get(list.size() - 1);
+    }
+
     @Test
     public void testAddValidAccount(){
         Account account = new Account(
@@ -23,9 +34,9 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here");
+                "for test account");
         assertTrue(crud.create(account));
-        crud.delete(account);
+        crud.delete(getTestAccount(crud.getAll()));
     }
 
     @Test
@@ -36,9 +47,8 @@ class AccountCRUDTest {
                 null,
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here");
+                "for test account");
         assertFalse(crud.create(account));
-        crud.delete(account);
     }
 
     @Test
@@ -49,9 +59,8 @@ class AccountCRUDTest {
                 "",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here");
+                "for test account");
         assertFalse(crud.create(account));
-        crud.delete(account);
     }
 
     @Test
@@ -62,11 +71,11 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here");
+                "for test account");
 
         crud.create(account);
         account.setUsername("super");
-        account.setId(((Account) crud.getAll().get(0)).getId());
+        account.setId(getTestAccount(crud.getAll()).getId());
         assertTrue(crud.update(account));
         crud.delete(account);
     }
@@ -79,11 +88,11 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here");
+                "for test account");
 
         crud.create(account);
         account.setUsername(null);
-        account.setId(((Account) crud.getAll().get(0)).getId());
+        account.setId(getTestAccount(crud.getAll()).getId());
         assertFalse(crud.update(account));
         crud.delete(account);
     }
@@ -96,11 +105,11 @@ class AccountCRUDTest {
                 "email@email.com",
                 "123456789!@#$%¨&*()_+",
                 "where was it?",
-                "it was here");
+                "for test account");
 
         crud.create(account);
         account.setUsername("");
-        account.setId(((Account) crud.getAll().get(0)).getId());
+        account.setId(getTestAccount(crud.getAll()).getId());
         assertFalse(crud.update(account));
         account.setUsername("username");
         crud.delete(account);

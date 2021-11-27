@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.sql.*;
-import java.util.List;
 
 public class AccountCRUD implements CRUD<Account>, CRUDFields{
     private Connection connection;
@@ -24,7 +23,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
 
     @Override
     public List get(String condition) {
-        logger.trace("");
+        logger.trace("get method");
         AccountList accountList = new AccountList();
         try{
             Statement statement = connection.createStatement();
@@ -48,7 +47,7 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
 
     @Override
     public List getAll() {
-        logger.trace("");
+        logger.trace("getAll method");
         AccountList accountList = new AccountList();
         try{
             Statement statement = connection.createStatement();
@@ -70,38 +69,9 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
         return accountList.returnList();
     }
 
-    private Boolean isToReturn(int result){
-        if (result == 1){
-            return true;
-        }
-        return false;
-    }
-
-    private Boolean isValueNull(String value){
-        if (value == null){
-            return true;
-        }
-        return false;
-    }
-
-    private Boolean isValueEmpty(String value){
-        if (!isValueNull(value)){
-            if (value.length() > 0){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private Boolean isAccountValid(Account account){
-        return (isValueEmpty(account.getUsername()) && isValueEmpty(account.getWebsite()));
-    }
-
-
-
     @Override
     public Boolean update(Account account) {
-        logger.trace("");
+        logger.trace("update method");
         int toreturn = 0;
         if (isAccountValid(account)){
             try {
@@ -112,19 +82,18 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 preparedStatement.setString(4, account.getPassword());
                 preparedStatement.setString(5, account.getReminderquestion());
                 preparedStatement.setString(6, account.getReminderanswer());
-                preparedStatement.setInt(8, account.getId());
+                preparedStatement.setInt(7, account.getId());
                 toreturn = preparedStatement.executeUpdate();
             } catch (Exception e){
                 logger.error(e.getMessage());
             }
         }
-
         return isToReturn(toreturn);
     }
 
     @Override
     public Boolean delete(Account account) {
-        logger.trace("");
+        logger.trace("delete method");
         int toreturn = 0;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(getDeleteString(getTableName()));
@@ -133,13 +102,12 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
         } catch (Exception e){
             logger.error(e.getMessage());
         }
-
         return isToReturn(toreturn);
     }
 
     @Override
     public Boolean create(Account account) {
-        logger.trace("");
+        logger.trace("create method");
         int toreturn = 0;
         if (isAccountValid(account)){
             try {
@@ -155,7 +123,6 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 logger.error(e.getMessage());
             }
         }
-
         return isToReturn(toreturn);
     }
 
@@ -180,15 +147,14 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 "email = ?, " +
                 "password = ?, " +
                 "reminderquestion = ?, " +
-                "reminderanswer = ?, " +
-                "twofactor = ? " +
+                "reminderanswer = ? " +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getInsertString(String table) {
         logger.trace("");
-        return "INSERT INTO "+ table + " (website, username, email, password, reminderquestion, reminderanswer, twofactor) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        return "INSERT INTO "+ table + " (website, username, email, password, reminderquestion, reminderanswer) VALUES (?, ?, ?, ?, ?, ?);";
     }
 
     @Override
@@ -212,8 +178,38 @@ public class AccountCRUD implements CRUD<Account>, CRUDFields{
                 " email VARCHAR," +
                 " password VARCHAR NOT NULL," +
                 " reminderquestion VARCHAR," +
-                " reminderanswer VARCHAR," +
-                " twofactor BOOLEAN" +
+                " reminderanswer VARCHAR" +
                 ");";
+    }
+
+    private Boolean isAccountValid(Account account){
+        logger.trace("Boolean check");
+        return (isValueEmpty(account.getUsername()) && isValueEmpty(account.getWebsite()));
+    }
+
+    private Boolean isToReturn(int result){
+        logger.debug("Number to check.: " + result);
+        if (result == 1){
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean isValueNull(String value){
+        logger.debug("Value to check.: " + value);
+        if (value == null){
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean isValueEmpty(String value){
+        logger.debug("Value to check.: " + value);
+        if (!isValueNull(value)){
+            if (value.length() > 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

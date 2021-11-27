@@ -24,10 +24,10 @@ class AccountListTest {
             "");
 
     Account account3 = new Account("username3",
-            "email2",
-            "password2",
-            "What was your first pet2",
-            "That one2",
+            "email3",
+            "password3",
+            "What was your first pet3",
+            "That one3",
             "");
 
     AccountList accountList = new AccountList();
@@ -45,17 +45,17 @@ class AccountListTest {
     @Test
     public void sameAccounts(){
         logger.trace("Test method");
-        assertSame(accountList.returnAccount(account1.getUsername()), account1);
-        assertSame(accountList.returnAccount(account2.getUsername()), account2);
-        assertSame(accountList.returnAccount(account3.getUsername()), account3);
+        assertSame(accountList.returnAccount(account1.getUsername()).getUsername(), account1.getUsername());
+        assertSame(accountList.returnAccount(account2.getUsername()).getUsername(), account2.getUsername());
+        assertSame(accountList.returnAccount(account3.getUsername()).getUsername(), account3.getUsername());
     }
 
     @Test
     public void differentAccounts(){
         logger.trace("Test method");
-        assertNotSame(accountList.returnAccount(account2.getUsername()), account1);
-        assertNotSame(accountList.returnAccount(account2.getUsername()), account3);
-        assertNotSame(accountList.returnAccount(account1.getUsername()), account3);
+        assertNotSame(accountList.returnAccount(account2.getUsername()).getUsername(), account1.getUsername());
+        assertNotSame(accountList.returnAccount(account2.getUsername()).getUsername(), account3.getUsername());
+        assertNotSame(accountList.returnAccount(account1.getUsername()).getUsername(), account3.getUsername());
     }
 
     @Test
