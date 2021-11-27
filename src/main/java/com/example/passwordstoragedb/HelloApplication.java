@@ -21,7 +21,6 @@ public class HelloApplication extends Application {
         logger.debug("this is a debug log message");
         logger.info("this is a information log message");
         logger.warn("this is a warning log message");
-        logger.info("This is my first log4j's statement");
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
